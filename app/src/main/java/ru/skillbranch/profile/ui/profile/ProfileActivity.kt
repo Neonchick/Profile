@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.autofill.Validators.not
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -63,6 +64,12 @@ class ProfileActivity : AppCompatActivity()
             for ((k, v) in viewFields)
                 v.text = it[k].toString()
         }
+        var nickname = ""
+        if (!viewFields["firstName"]?.text.isNullOrEmpty())
+            nickname += viewFields["firstName"]!!.text
+        if (!viewFields["lastName"]?.text.isNullOrEmpty())
+            nickname += " ${viewFields["lastName"]!!.text}"
+        tv_nick_name.text = if (nickname.isNotEmpty()) nickname else "John Doe"
     }
 
     private fun initViews(savedInstanceState: Bundle?)
